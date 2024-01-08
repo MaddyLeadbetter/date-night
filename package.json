@@ -9,12 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@effect/data": "^0.18.7",
+    "@effect/io": "^0.41.2",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.3",
     "@mui/material": "^5.15.3",
+    "@nll/datum": "^3.5.0",
+    "axios": "^1.6.4",
+    "io-ts": "^2.2.21",
     "next": "14.0.4",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-query": "^3.39.3"
   },
   "devDependencies": {
     "@types/node": "^20",

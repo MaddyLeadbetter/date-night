@@ -9,6 +9,15 @@ declare module '@mui/material/styles/' {
   }
 }
 
+declare module '@mui/material' {
+  interface Palette {
+    neutral: Palette['primary'];
+  }
+  interface PaletteOptions {
+    neutral: PaletteOptions['primary'];
+  }
+}
+
 const mainTheme = createTheme({
   palette: {
     primary: {
@@ -16,6 +25,12 @@ const mainTheme = createTheme({
     },
     secondary: {
       main: teal[500]
+    },
+    neutral: {
+      main: neutral[500],
+      light: neutral[300],
+      dark: neutral[700],
+      contrastText: '#00000'
     },
     text: {
       primary: neutral[700],
