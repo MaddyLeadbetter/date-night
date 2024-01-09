@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Nunito } from 'next/font/google';
 
+import { pink } from '@/colours';
+
 const nunito = Nunito({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -11,7 +13,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={nunito.className} style={{ margin: 0 }}>
+      <body className={nunito.className} style={{ margin: 0, background: pink[50] }}>
         {children}
       </body>
     </html>

@@ -1,6 +1,6 @@
 'use client';
 
-import { constNull, pipe } from '@effect/data/Function';
+import { pipe } from '@effect/data/Function';
 import type { BoxProps } from '@mui/material';
 import { Box, Button, Typography } from '@mui/material';
 import * as DE from '@nll/datum/DatumEither';
@@ -12,14 +12,12 @@ import { Loader } from '@/components/loader';
 import { DateInfo } from '../components/date-info';
 import { Filters } from '../components/filters';
 import { convertResponseToDE, DateParams, fetchDate } from './api';
-import { DateNightSuccess } from './codecs';
-
-type DateResultDE = DE.DatumEither<{ _tag: string; error: string }, DateNightSuccess>;
 
 const InfoContainer = ({ sx, children }: { sx?: BoxProps['sx']; children: ReactNode }) => (
   <Box
     sx={{
-      border: t => `1px solid ${t.palette.neutral.light}`,
+      background: t => t.palette.common.white,
+      border: t => `1px solid ${t.palette.common.white}`,
       borderRadius: 4,
       mx: 2,
       mb: 4,
@@ -57,7 +55,11 @@ export const DateGenerator = () => {
         {pipe(
           convertResponseToDE(response),
           DE.refreshFold(
-            constNull,
+            () => (
+              <Typography variant="h6">
+                Click &quot;Generate a Date&quot; to get started!
+              </Typography>
+            ),
             () => <Loader />,
             ({ _tag, error }) => {
               console.error(`An error occurred with the type ${_tag}: ${error} ${response.error}`);
