@@ -13,14 +13,17 @@ export const Type = t.keyof({
 });
 export type Type = t.TypeOf<typeof Type>;
 
-export const DateNight = t.type({
+export const DateNightSuccess = t.type({
   activity: t.string,
   type: Type,
   price: t.number,
   accessibility: t.number,
   link: t.union([t.string, t.null])
 });
-export type DateNight = t.TypeOf<typeof DateNight>;
+export type DateNightSuccess = t.TypeOf<typeof DateNightSuccess>;
 
-export const DateResult = t.type({ data: DateNight });
+export const DateNightFailure = t.type({ error: t.string });
+export type DateNightFailure = t.TypeOf<typeof DateNightFailure>;
+
+export const DateResult = t.union([DateNightSuccess, DateNightFailure]);
 export type DateResult = t.TypeOf<typeof DateResult>;

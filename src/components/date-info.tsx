@@ -2,11 +2,12 @@ import { pipe } from '@effect/data/Function';
 import * as Str from '@effect/data/String';
 import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
 import PaidIcon from '@mui/icons-material/Paid';
-import type { BoxProps } from '@mui/material';
+import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
+import type { SxProps, Theme } from '@mui/material';
 import { Box, Link, Rating, Typography } from '@mui/material';
 import { ReactNode } from 'react';
 
-import { DateNight } from '../app/codecs';
+import { DateNightSuccess as DateNight } from '../app/codecs';
 
 const formatActivity = (a: string) =>
   pipe(a, Str.replace('with a friend', ''), Str.replace('with someone', ''));
@@ -14,34 +15,30 @@ const formatActivity = (a: string) =>
 const RatingInfo = ({
   label,
   rating,
-  children
+  filledIcon,
+  emptyIcon,
+  sx
 }: {
   label: string;
   rating: number;
-  children: ReactNode;
+  filledIcon?: ReactNode;
+  emptyIcon?: ReactNode;
+  sx?: SxProps<Theme>;
 }) => (
-  <Box>
+  <Box sx={sx}>
     <Typography sx={{ fontWeight: 'bold' }}>{label}:</Typography>
     <Typography sx={{ display: 'flex', gap: 1 }}>
-      {children}
-      <Rating name="price" value={rating * 5} precision={0.5} readOnly />
+      <Rating
+        sx={{ color: t => t.palette.primary.light }}
+        name={label}
+        value={rating * 10}
+        precision={0.5}
+        max={10}
+        readOnly
+        icon={filledIcon}
+        emptyIcon={emptyIcon}
+      />
     </Typography>
-  </Box>
-);
-
-export const InfoContainer = ({ sx, children }: { sx?: BoxProps['sx']; children: ReactNode }) => (
-  <Box
-    sx={{
-      border: t => `1px solid ${t.palette.neutral.light}`,
-      borderRadius: 4,
-      mx: 2,
-      mb: 4,
-      px: 4,
-      py: 3,
-      minWidth: { xs: 0, md: 500 },
-      ...sx
-    }}>
-    {children}
   </Box>
 );
 
@@ -50,16 +47,27 @@ export const DateInfo = ({
 }: {
   date: DateNight;
 }) => (
-  <InfoContainer>
+  <>
     <Typography sx={{ mb: 1 }} variant="h6">
       {formatActivity(activity)}
     </Typography>
-    <RatingInfo label="Price" rating={price}>
-      <PaidIcon sx={{ width: 24, height: 24, color: t => t.palette.primary.dark }} />
-    </RatingInfo>
-    <RatingInfo label="Accessibility" rating={accessibility}>
-      <AccessibilityNewIcon sx={{ width: 24, height: 24, color: t => t.palette.primary.dark }} />
-    </RatingInfo>
-    {link && <Link>{link}</Link>}
-  </InfoContainer>
+    <RatingInfo
+      label="Price"
+      rating={price}
+      filledIcon={<PaidIcon />}
+      emptyIcon={<PaidOutlinedIcon />}
+    />
+    <RatingInfo
+      sx={{ mt: 2 }}
+      label="Accessibility"
+      rating={accessibility}
+      filledIcon={<AccessibilityNewIcon />}
+      emptyIcon={<AccessibilityNewIcon />}
+    />
+    {link && (
+      <Typography sx={{ mt: 2 }}>
+        Get started here: <Link sx={{ color: t => t.palette.primary.dark }}>{link}</Link>
+      </Typography>
+    )}
+  </>
 );

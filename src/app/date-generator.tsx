@@ -1,37 +1,44 @@
 'use client';
 
 import { constNull, pipe } from '@effect/data/Function';
-import * as O from '@effect/data/Option';
+import type { BoxProps } from '@mui/material';
 import { Box, Button, Typography } from '@mui/material';
 import * as DE from '@nll/datum/DatumEither';
-import axios from 'axios';
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { useQuery } from 'react-query';
 
 import { Loader } from '@/components/loader';
 
-import { DateInfo, InfoContainer } from '../components/date-info';
+import { DateInfo } from '../components/date-info';
 import { Filters } from '../components/filters';
-import { DateNight, Type } from './codecs';
+import { convertResponseToDE, DateParams, fetchDate } from './api';
+import { DateNightSuccess } from './codecs';
 
-export type DateParams = {
-  type?: Type;
-  price?: number;
-  minPrice?: number;
-  maxPrice?: number;
-  accesibility?: number;
-  minAccessibility?: number;
-  maxAccessibility?: number;
-};
+type DateResultDE = DE.DatumEither<{ _tag: string; error: string }, DateNightSuccess>;
 
-type DateResultDE = DE.DatumEither<{ _tag: string; error: unknown }, DateNight>;
-
-const fetchDate = async (params: DateParams) =>
-  await axios.get('http://www.boredapi.com/api/activity?participants=2', { method: 'GET' });
+const InfoContainer = ({ sx, children }: { sx?: BoxProps['sx']; children: ReactNode }) => (
+  <Box
+    sx={{
+      border: t => `1px solid ${t.palette.neutral.light}`,
+      borderRadius: 4,
+      mx: 2,
+      mb: 4,
+      px: 4,
+      py: 3,
+      minWidth: { xs: 0, md: 500 },
+      ...sx
+    }}>
+    {children}
+  </Box>
+);
 
 export const DateGenerator = () => {
-  const [dateParams, setDateParams] = useState<DateParams>({});
-  const { data, isError, error, refetch, isFetching, isLoading } = useQuery({
+  const [dateParams, setDateParams] = useState<DateParams>({
+    type: null,
+    price: null,
+    accessibility: null
+  });
+  const { refetch, ...response } = useQuery({
     queryKey: ['dateidea'],
     queryFn: () => fetchDate(dateParams),
     enabled: false
@@ -39,41 +46,27 @@ export const DateGenerator = () => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, alignItems: 'center' }}>
-      <Button sx={{ mt: 3 }} variant="contained" onClick={() => refetch()}>
-        Generate a Date
-      </Button>
-      <Filters setDateParams={setDateParams} />
+      <Box sx={{ display: 'flex', gap: 3, mt: 3 }}>
+        <Button variant="contained" onClick={() => refetch()}>
+          Generate a Date
+        </Button>
+        <Filters dateParams={dateParams} setDateParams={setDateParams} />
+      </Box>
 
-      {/* This is a bit of a convoluted way to show DatumEither but wanted to show an example */}
-      {pipe(
-        isError ? O.some(DE.failure({ _tag: 'api', error }) as DateResultDE) : O.none(),
-        O.orElse(() => (isFetching || isLoading ? O.some(DE.pending as DateResultDE) : O.none())),
-        O.orElse(() =>
-          pipe(
-            data?.data,
-            O.fromNullable,
-            O.map(d =>
-              DateNight.is(d)
-                ? (DE.success(d) as DateResultDE)
-                : DE.failure({ _tag: 'decode', error: 'Data is incorrect format' })
-            )
+      <InfoContainer>
+        {pipe(
+          convertResponseToDE(response),
+          DE.refreshFold(
+            constNull,
+            () => <Loader />,
+            ({ _tag, error }) => {
+              console.error(`An error occurred with the type ${_tag}: ${error} ${response.error}`);
+              return <Typography>{error}</Typography>;
+            },
+            date => <DateInfo date={date} />
           )
-        ),
-        O.getOrElse(() => DE.initial as DateResultDE),
-        DE.refreshFold(
-          constNull,
-          () => (
-            <InfoContainer>
-              <Loader />
-            </InfoContainer>
-          ),
-          e => {
-            console.error('An error occurred with the type', e._tag, ':', e.error);
-            return <Typography>Uh oh something went wrong!</Typography>;
-          },
-          date => <DateInfo date={date} />
-        )
-      )}
+        )}
+      </InfoContainer>
     </Box>
   );
 };
