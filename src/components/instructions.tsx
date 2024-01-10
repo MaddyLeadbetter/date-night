@@ -19,8 +19,7 @@ export const Instructions = () => (
       variant="h1"
       sx={{
         mb: 1,
-        fontSize: { xs: '2rem', sm: '4rem', md: '6rem' },
-        fontFamily: '__Rampart_One_bcc7a0, __Rampart_One_Fallback_bcc7a0'
+        fontSize: { xs: '2rem', sm: '4rem', md: '6rem' }
       }}>
       Date Nite
     </Typography>

@@ -39,7 +39,10 @@ const mainTheme = createTheme({
     }
   },
   typography: {
-    fontFamily: '__Nunito_3dc409, __Nunito_Fallback_3dc409'
+    fontFamily: 'Nunito',
+    h1: {
+      fontFamily: 'Rampart One'
+    }
   },
   breakpoints: {
     values: {

@@ -386,6 +386,16 @@
   resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.1.6.tgz#22958c042e10b67463997bd6ea7115fe28cbcaf9"
   integrity sha512-OfX7E2oUDYxtBvsuS4e/jSn4Q9Qb6DzgeYtsAdkPZ47znpoNsMgZw0+tVijiv3uGNR6dgNlty6r9rzIzHjtd/A==
 
+"@fontsource/nunito@^5.0.16":
+  version "5.0.16"
+  resolved "https://registry.yarnpkg.com/@fontsource/nunito/-/nunito-5.0.16.tgz#7283fc487d9c2d7edb3be3ce8298647f85e9d463"
+  integrity sha512-55Au63Sm2ux/Aef4JenA8HJKEH1mpEMvZCYR7f4pnlOQ9linVwa1/dzPh2GDnt2H5uUK7hK2JmPCyskrldm8+w==
+
+"@fontsource/rampart-one@^5.0.17":
+  version "5.0.17"
+  resolved "https://registry.yarnpkg.com/@fontsource/rampart-one/-/rampart-one-5.0.17.tgz#01c6848829649948bcba0bf567e88ed2a9885812"
+  integrity sha512-vnKaFvjvwE6JFffet6pi32s2qJR1YIzNFF26EUv4zUSqyvr/mf01xaloxDTxjKJbhIioyqrXYSJKSfaZq0qeqA==
+
 "@humanwhocodes/config-array@^0.11.13":
   version "0.11.13"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.11.13.tgz#075dc9684f40a531d9b26b0822153c1e832ee297"

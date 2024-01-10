@@ -13,6 +13,8 @@
     "@effect/io": "^0.41.2",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
+    "@fontsource/nunito": "^5.0.16",
+    "@fontsource/rampart-one": "^5.0.17",
     "@mui/icons-material": "^5.15.3",
     "@mui/material": "^5.15.3",
     "@nll/datum": "^3.5.0",
