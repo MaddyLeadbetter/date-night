@@ -27,7 +27,7 @@ export const fetchDate = async (params: DateParams) =>
     R.collect((_key, val) => val),
     A.join('&'),
     async queryParams =>
-      await axios.get(`http://www.boredapi.com/api/activity?${queryParams}`, {
+      await axios.get(`https://www.boredapi.com/api/activity?${queryParams}`, {
         method: 'GET'
       })
   );
