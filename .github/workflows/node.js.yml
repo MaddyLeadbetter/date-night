@@ -20,7 +20,7 @@ jobs:
           node-version: '16.x'
 
       - name: Installing my packages
-        run: yarn ci
+        run: yarn install --frozen-lockfile
 
       - name: Build my App
         run: yarn run build && yarn run export && touch ./out/.nojekyll
