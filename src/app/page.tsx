@@ -10,6 +10,7 @@ import { DateGenerator } from './date-generator';
 
 const Home = () => {
   const queryClient = new QueryClient();
+
   return (
     <ThemeProvider theme={mainTheme}>
       <Instructions />

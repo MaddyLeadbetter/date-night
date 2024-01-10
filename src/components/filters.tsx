@@ -17,8 +17,8 @@ import {
 } from '@mui/material';
 import { SetStateAction, useCallback, useState } from 'react';
 
+import { DateParams } from '../app/api';
 import { Type } from '../app/codecs';
-import { DateParams } from '../app/date-generator';
 
 export const Filters = ({
   dateParams,

@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
-import { Nunito } from 'next/font/google';
+import { Nunito, Rampart_One } from 'next/font/google';
 
 import { pink } from '@/colours';
 
 const nunito = Nunito({ subsets: ['latin'] });
+const rampartOne = Rampart_One({ weight: '400', subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -13,7 +14,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={nunito.className} style={{ margin: 0, background: pink[50] }}>
+      <body
+        className={`${nunito.className} ${rampartOne.className}`}
+        style={{ margin: 0, background: pink[50] }}>
         {children}
       </body>
     </html>
