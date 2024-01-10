@@ -10,7 +10,18 @@ import { pink } from '@/colours';
 
 export const metadata: Metadata = {
   title: 'Date Nite',
-  description: 'Generate a cool new date idea'
+  description: 'Generate your next cool date idea!',
+  openGraph: {
+    type: 'website',
+    url: 'https://maddyleadbetter.github.io/date-night/',
+    title: 'Date Nite',
+    description: 'Generate your next cool date idea!',
+    siteName: 'Date Nite'
+  },
+  twitter: {
+    title: 'Date Nite',
+    description: 'Generate your next cool date idea!'
+  }
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

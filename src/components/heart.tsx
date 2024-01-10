@@ -49,7 +49,7 @@ const heartPiece2 = keyframes`
 `;
 
 export const AnimatedHeart = () => (
-  <Box sx={{ position: 'relative', mt: 5, mb: 15 }}>
+  <Box sx={{ position: 'relative', mt: 5, mb: 15, mr: 5 }}>
     <Box
       sx={{
         width: 80,
